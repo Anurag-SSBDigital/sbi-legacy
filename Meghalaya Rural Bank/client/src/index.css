@@ -1,0 +1,236 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===== Brand Duo: Green #3d8f40 + Indigo #423b8a ===== */
+
+:root {
+  --radius: 0.625rem;
+
+  /* Light surfaces & text */
+  --background: #ffffff;
+  --foreground: oklch(0.22 0.030 150); /* neutral with slight green bias */
+
+  --card: #ffffff;
+  --card-foreground: var(--foreground);
+
+  --popover: #ffffff;
+  --popover-foreground: var(--foreground);
+
+  /* Brand mapping */
+  --primary: #3d8f40;           /* Primary actions — green */
+  --primary-foreground: #ffffff;
+
+  --accent: #423b8a;            /* Accent CTAs — indigo */
+  --accent-foreground: #ffffff;
+
+  /* Support tones */
+  --secondary: oklch(0.965 0.022 150);  /* pale greenish neutral */
+  --secondary-foreground: oklch(0.28 0.032 255);
+
+  --muted: oklch(0.955 0.016 155);
+  --muted-foreground: oklch(0.56 0.030 160);
+
+  --destructive: oklch(0.60 0.22 27);
+
+  /* UI chrome */
+  --border: oklch(0.92 0.010 155);
+  --input: oklch(0.92 0.010 155);
+  --ring: color-mix(in oklab, #3d8f40 70%, white 30%);
+
+  /* Charts (brand-forward, readable) */
+  --chart-1: #3d8f40;                                      /* brand green */
+  --chart-2: color-mix(in oklab, #3d8f40 60%, white 40%);  /* light green */
+  --chart-3: color-mix(in oklab, #3d8f40 80%, black 20%);  /* deep green */
+  --chart-4: #423b8a;                                      /* brand indigo */
+  --chart-5: color-mix(in oklab, #423b8a 55%, white 45%);  /* soft indigo */
+
+  /* Sidebar */
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* ===================== Dark mode ===================== */
+.dark {
+  --background: oklch(0.14 0.028 160);    /* deep slate with green bias */
+  --foreground: oklch(0.96 0.006 160);
+
+  --card: oklch(0.18 0.026 160);
+  --card-foreground: var(--foreground);
+
+  --popover: oklch(0.20 0.028 160);
+  --popover-foreground: var(--foreground);
+
+  /* Brighten brand hues for vibrancy on dark */
+  --primary: color-mix(in oklab, #3d8f40 55%, white 45%);  /* lively green */
+  --primary-foreground: oklch(0.15 0.018 160);
+
+  --accent: color-mix(in oklab, #423b8a 55%, white 45%);   /* lively indigo */
+  --accent-foreground: oklch(0.15 0.015 260);
+
+  --secondary: oklch(0.24 0.020 160);
+  --secondary-foreground: oklch(0.96 0.006 160);
+
+  --muted: oklch(0.22 0.018 160);
+  --muted-foreground: oklch(0.70 0.030 160);
+
+  --destructive: oklch(0.66 0.19 22.2);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: color-mix(in oklab, #8ecf90 70%, white 30%);
+
+  /* Dark charts */
+  --chart-1: color-mix(in oklab, #3d8f40 85%, white 15%);
+  --chart-2: color-mix(in oklab, #3d8f40 60%, black 40%);
+  --chart-3: color-mix(in oklab, #423b8a 85%, white 15%);
+  --chart-4: color-mix(in oklab, #423b8a 60%, black 40%);
+  --chart-5: color-mix(in oklab, #3d8f40 50%, #423b8a 50%);
+}
+
+/* ============== Tailwind @theme bindings ============== */
+@theme inline {
+  --font-inter: 'Inter', 'sans-serif';
+  --font-manrope: 'Manrope', 'sans-serif';
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ===================== Base layer ===================== */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  html { @apply overflow-x-hidden; }
+  body { @apply bg-background text-foreground font-inter min-h-svh w-full; }
+
+  h1,h2,h3,h4,h5,h6 { @apply font-manrope; }
+
+  .card { @apply bg-card text-card-foreground rounded-lg p-6 shadow-md; }
+
+  .button {
+    @apply bg-primary text-primary-foreground rounded-md px-4 py-2 transition-colors duration-200;
+  }
+  .button:hover { @apply brightness-105; }
+  .button:focus { @apply ring-2 ring-offset-2; }
+
+  .button-accent {
+    @apply rounded-md px-4 py-2 transition-colors duration-200 text-accent-foreground;
+    background: var(--accent);
+  }
+  .button-accent:hover { @apply brightness-105; }
+  .button-accent:focus { @apply ring-2 ring-offset-2; }
+
+  input, textarea, select { @apply border-input rounded-md border px-3 py-2; }
+  input:focus, textarea:focus, select:focus { @apply ring-2 ring-[color:var(--ring)]; }
+
+  button:not(:disabled), [role='button']:not(:disabled) { cursor: pointer; }
+
+  @media screen and (max-width: 767px) {
+    input, select, textarea { font-size: 16px !important; }
+  }
+}
+
+/* ===================== Utilities ===================== */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Brand-aware gradients */
+@utility hero-gradient {
+  /* green → indigo sweep */
+  background: linear-gradient(
+    135deg,
+    #3d8f40 0%,
+    color-mix(in oklab, #3d8f40 60%, white 40%) 38%,
+    #423b8a 100%
+  );
+  color: white;
+}
+@utility button-gradient {
+  background: linear-gradient(
+    90deg,
+    #3d8f40 0%,
+    color-mix(in oklab, #3d8f40 70%, #423b8a 30%) 50%,
+    #423b8a 100%
+  );
+  color: white;
+}
+
+/* Faded bottom mask */
+@utility faded-bottom {
+  @apply after:pointer-events-none after:absolute after:bottom-0 after:left-0
+    after:hidden after:h-32 after:w-full
+    after:bg-[linear-gradient(180deg,_transparent_10%,_var(--background)_70%)]
+    md:after:block;
+}
+
+/* ===================== Collapsible ===================== */
+.CollapsibleContent { overflow: hidden; }
+.CollapsibleContent[data-state='open']   { animation: slideDown 300ms ease-out; }
+.CollapsibleContent[data-state='closed'] { animation: slideUp   300ms ease-out; }
+
+@keyframes slideDown { from { height: 0; } to { height: var(--radix-collapsible-content-height); } }
+@keyframes slideUp   { from { height: var(--radix-collapsible-content-height); } to { height: 0; } }
+
+/* ===================== Fade-in ===================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }

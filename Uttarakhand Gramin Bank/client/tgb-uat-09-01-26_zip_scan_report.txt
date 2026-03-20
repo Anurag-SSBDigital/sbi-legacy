@@ -1,0 +1,13 @@
+/mnt/d/sbi/Telangana Grameena Bank/client/tgb-uat-09-01-26.zip: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 3627220
+Engine version: 1.4.3
+Scanned directories: 0
+Scanned files: 1
+Infected files: 0
+Data scanned: 13.63 MB
+Data read: 2.33 MB (ratio 5.85:1)
+Time: 43.404 sec (0 m 43 s)
+Start Date: 2026:01:09 14:14:31
+End Date:   2026:01:09 14:15:15

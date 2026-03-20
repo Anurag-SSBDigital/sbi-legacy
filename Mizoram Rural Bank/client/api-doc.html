@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarfaesi API Documentation</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --bg-color: #f8f9fa;
+            --code-bg: #2d2d2d;
+            --code-text: #f8f8f2;
+            --border-color: #e9ecef;
+            
+            /* Method Colors */
+            --get-color: #61affe;
+            --get-bg: #e7f5ff;
+            --post-color: #49cc90;
+            --post-bg: #e6f7ef;
+            --put-color: #fca130;
+            --put-bg: #fff5ea;
+            --delete-color: #f93e3e;
+            --delete-bg: #ffeaea;
+            --patch-color: #50e3c2;
+            --patch-bg: #e6fffa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-color);
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            background: #fff;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        nav h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #888;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: 5px 0;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 250px;
+            padding: 40px 60px;
+            max-width: 900px;
+            background: #fff;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 50px;
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            margin-top: 30px;
+            color: var(--primary-color);
+        }
+
+        p {
+            color: #555;
+        }
+
+        /* Endpoint Styling */
+        .endpoint {
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        .endpoint-header {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: 10px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .badge.get { background-color: var(--get-color); }
+        .badge.post { background-color: var(--post-color); }
+        .badge.put { background-color: var(--put-color); }
+        .badge.delete { background-color: var(--delete-color); }
+        .badge.patch { background-color: var(--patch-color); color: #333; }
+
+        .path {
+            color: #555;
+        }
+
+        .endpoint-body {
+            padding: 15px;
+            background: #fafafa;
+        }
+
+        .meta-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .meta-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 13px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+        }
+
+        /* Schemas */
+        .schema-block {
+            margin-top: 40px;
+        }
+
+        /* Print Media Queries */
+        @media print {
+            nav { display: none; }
+            main { margin: 0; padding: 20px; box-shadow: none; width: 100%; max-width: 100%; }
+            body { background: #fff; }
+            h2 { page-break-before: always; margin-top: 0; }
+            h2:first-of-type { page-break-before: auto; }
+            a { text-decoration: none; color: #000; }
+            .endpoint { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <strong>Sarfaesi API</strong>
+    <h3>Modules</h3>
+    <ul>
+        <li><a href="#securities">Securities Operations</a></li>
+        <li><a href="#borrower">Borrower Operations</a></li>
+        <li><a href="#approval">Approval Operations</a></li>
+        <li><a href="#account">Account Operations</a></li>
+        <li><a href="#workflow">Workflow Operations</a></li>
+        <li><a href="#user">User Operations</a></li>
+        <li><a href="#schemas">Schemas</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h1>Sarfaesi API Documentation</h1>
+    <p>This document provides a comprehensive reference for all Sarfaesi-related API endpoints, including request and response schemas.</p>
+
+    <h2 id="securities">1. Securities Operations</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge post">POST</span>
+            <span class="path">/sarfaesi/securities/create</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> createSecurityDetails</div>
+            <div class="meta-info">Creates new security details for a Sarfaesi account.</div>
+            <div class="meta-info"><span class="meta-label">Body:</span> <a href="#schema-security">SarfaesiSecurityDetails</a></div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge put">PUT</span>
+            <span class="path">/sarfaesi/securities/update/{id}</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> updateSecurityDetails</div>
+            <div class="meta-info">Updates existing security details.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/sarfaesi/securities/all</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getAllSecurities</div>
+            <div class="meta-info">Retrieves all security details.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/sarfaesi/securities/account/{accountId}</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getSecuritiesByAccountId</div>
+            <div class="meta-info">Get security details associated with a specific account ID.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge delete">DELETE</span>
+            <span class="path">/sarfaesi/securities/delete/{id}</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> deleteSecurityDetails</div>
+            <div class="meta-info">Deletes a security record.</div>
+        </div>
+    </div>
+
+    <h2 id="borrower">2. Borrower Operations</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge post">POST</span>
+            <span class="path">/sarfaesi/borrowers/create</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> createBorrowerDetails</div>
+            <div class="meta-info">Creates new borrower/guarantor details.</div>
+            <div class="meta-info"><span class="meta-label">Body:</span> <a href="#schema-borrower">SarfaesiBorrowerGuarantorDetails</a></div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge put">PUT</span>
+            <span class="path">/sarfaesi/borrowers/update/{id}</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> updateBorrowerDetails</div>
+            <div class="meta-info">Updates existing borrower details.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/sarfaesi/borrowers/account/{accountId}</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getBorrowerByAccountId</div>
+            <div class="meta-info">Retrieves borrower details for a specific account.</div>
+        </div>
+    </div>
+
+    <h2 id="approval">3. Approval Operations</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge post">POST</span>
+            <span class="path">/sarfaesi/approvals/create</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> createSarfaesiApproval</div>
+            <div class="meta-info">Creates a new Sarfaesi approval record.</div>
+            <div class="meta-info"><span class="meta-label">Body:</span> <a href="#schema-approval">SarfaesiApproval</a></div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/sarfaesi/approvals/{id}</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getSarfaesiApprovalById</div>
+            <div class="meta-info">Retrieves specific approval record.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/sarfaesi/approvals/region/{region}</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getSarfaesiApprovalsByRegion</div>
+            <div class="meta-info">Lists approvals by region.</div>
+        </div>
+    </div>
+
+    <h2 id="account">4. Account Operations</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge post">POST</span>
+            <span class="path">/sarfaesi/accounts/create</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> createAccount</div>
+            <div class="meta-info">Creates a new account identification record.</div>
+            <div class="meta-info"><span class="meta-label">Body:</span> <a href="#schema-account">SarfaesiAccountIdentification</a></div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge post">POST</span>
+            <span class="path">/sarfaesi/EligibleAccount</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> sarfaesiEligibleAccount</div>
+            <div class="meta-info">Marks an account as eligible for Sarfaesi.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge patch">PATCH</span>
+            <span class="path">/sarfaesi/update-status/{acctNo}</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> updateStatusToMovedProceeding</div>
+            <div class="meta-info">Updates account status to 'Moved Proceeding'.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/sarfaesi/eligible-accounts</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getEligibleAccounts</div>
+            <div class="meta-info">Paginated list of eligible accounts.</div>
+            <div class="meta-info"><span class="meta-label">Query Params:</span> branchId, page, size</div>
+        </div>
+    </div>
+
+    <h2 id="workflow">5. Workflow Operations</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge post">POST</span>
+            <span class="path">/api/sarfaesi/{accountNumber}/initiate</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> initiateSarfaesiProcess</div>
+            <div class="meta-info">Starts the Sarfaesi workflow for an account.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge post">POST</span>
+            <span class="path">/api/sarfaesi/{accountNumber}/complete-task</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> completeCurrentTask</div>
+            <div class="meta-info">Completes the current workflow task.</div>
+            <div class="meta-info"><span class="meta-label">Body:</span> <a href="#schema-task">TaskCompletionRequest</a></div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge post">POST</span>
+            <span class="path">/api/sarfaesi/{accountNumber}/upload-document</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> uploadDocument</div>
+            <div class="meta-info">Uploads a document to the case.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/api/sarfaesi/{accountNumber}/history</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getCaseHistory</div>
+            <div class="meta-info">Returns full case history including timelines and documents.</div>
+        </div>
+    </div>
+
+    <h2 id="user">6. User Operations</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/api/sarfaesi/user/tasks</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getUserTasks</div>
+            <div class="meta-info">Retrieves assigned tasks for the logged-in user.</div>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="badge get">GET</span>
+            <span class="path">/api/sarfaesi/user/dashboard</span>
+        </div>
+        <div class="endpoint-body">
+            <div class="meta-info"><span class="meta-label">ID:</span> getUserDashboard</div>
+            <div class="meta-info">Retrieves aggregated dashboard statistics.</div>
+        </div>
+    </div>
+
+    <h2 id="schemas">7. Schemas</h2>
+
+    <div class="schema-block" id="schema-security">
+        <h3>SarfaesiSecurityDetails</h3>
+<pre><code>{
+  "id": "number (int64)",
+  "natureOfSecurity": "string",
+  "numberOfSecurities": "number (int32)",
+  "securityDescription": "string",
+  "locationOfProperty": "string",
+  "stateDistrictOfProperty": "string",
+  "valuerName": "string",
+  "valuationDate": "string (date)",
+  "fairMarketValue": "number (double)",
+  "realizableValue": "number (double)",
+  "chargeCreationDate": "string (date)",
+  "chargeType": "string",
+  "cersaiRegistrationNo": "string",
+  "insuranceDetails": "string",
+  "encumbranceStatus": "string"
+}</code></pre>
+    </div>
+
+    <div class="schema-block" id="schema-borrower">
+        <h3>SarfaesiBorrowerGuarantorDetails</h3>
+<pre><code>{
+  "id": "number (int64)",
+  "borrowerAddress": "string",
+  "emailId": "string",
+  "contactNumber": "string",
+  "guarantorNames": "string",
+  "guarantorCifs": "string",
+  "guarantorAddresses": "string",
+  "createdTime": "string (date-time)"
+}</code></pre>
+    </div>
+
+    <div class="schema-block" id="schema-approval">
+        <h3>SarfaesiApproval</h3>
+<pre><code>{
+  "id": "number (int64)",
+  "accountNo": "string",
+  "branchName": "string",
+  "region": "string",
+  "borrowerName": "string",
+  "sanctionDate": "string (date)",
+  "sanctionAmount": "number",
+  "outstandingDues": "number",
+  "tangibleSecurities": [
+    {
+      "details": "string",
+      "expectedMarketValue": "number"
+    }
+  ],
+  "remarks": "string"
+}</code></pre>
+    </div>
+
+    <div class="schema-block" id="schema-account">
+        <h3>SarfaesiAccountIdentification</h3>
+<pre><code>{
+  "id": "number (int64)",
+  "accountNumber": "string",
+  "customerName": "string",
+  "cifNumber": "string",
+  "branchCode": "string",
+  "dateOfNpa": "string (date)",
+  "outstandingBalance": "number (double)",
+  "totalDues": "number (double)",
+  "categoryOfLoan": "string"
+}</code></pre>
+    </div>
+
+    <div class="schema-block" id="schema-workflow">
+        <h3>SarfaesiWorkflowStatus</h3>
+<pre><code>{
+  "instanceId": "number (int64)",
+  "accountNumber": "string",
+  "currentStage": "string",
+  "status": "string",
+  "dueDate": "string (date-time)",
+  "pendingActions": ["string"],
+  "progressPercentage": "number (int32)",
+  "overdue": "boolean"
+}</code></pre>
+    </div>
+
+</main>
+
+</body>
+</html>

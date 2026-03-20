@@ -1,0 +1,32 @@
+﻿
+> client@1.3.0 build C:\Users\SSBD-202401-02\Documents\GitHub\SBI-EWS-only-\Mizoram Rural Bank\client
+> pnpm api-type-gen && pnpm generate-routes && tsgo -b --noEmit && vite build
+
+
+> client@1.3.0 api-type-gen C:\Users\SSBD-202401-02\Documents\GitHub\SBI-EWS-only-\Mizoram Rural Bank\client
+> openapi-typescript https://tgb.ssbi.tech/backend/v3/api-docs -o ./src/types/api/v1.d.ts
+
+Γ£¿ openapi-typescript 7.9.1
+≡ƒÜÇ https://tgb.ssbi.tech/backend/v3/api-docs ΓåÆ ./src/types/api/v1.d.ts [1.8s]
+
+> client@1.3.0 generate-routes C:\Users\SSBD-202401-02\Documents\GitHub\SBI-EWS-only-\Mizoram Rural Bank\client
+> tsr generate
+
+pnpm : 'tsr' is not recognized 
+as an internal or external 
+command,
+At line:1 char:1
++ pnpm build 2>&1 | Out-File 
+-FilePath build_results.txt 
+-Encoding utf8 ...
++ ~~~~~~~~~~~~~~~
+    + CategoryInfo          : N 
+   otSpecified: ('tsr' is not   
+  re...ternal command,:String   
+ ) [], RemoteException
+    + FullyQualifiedErrorId : N 
+   ativeCommandError
+ 
+operable program or batch file.
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 1.
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 1.

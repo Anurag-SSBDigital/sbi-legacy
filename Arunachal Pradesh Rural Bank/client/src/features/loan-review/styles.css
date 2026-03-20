@@ -1,0 +1,15 @@
+/* .table-row {
+  @apply bg-gray-100;
+}
+
+.dark .table-row {
+  @apply bg-gray-900;
+}
+
+.add-btn {
+  @apply bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-400 dark:hover:bg-emerald-500;
+}
+
+.dark .add-btn {
+  @apply dark:bg-emerald-400 dark:hover:bg-emerald-500;
+} */

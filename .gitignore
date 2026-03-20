@@ -1,0 +1,18 @@
+# Legacy archive: keep source, ignore generated artifacts from local runs.
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/coverage/
+**/.vite/
+**/.tanstack/tmp/
+**/target/
+**/logs/
+**/*.log
+**/.idea/
+**/.vscode/
+**/.DS_Store
+**/Thumbs.db
+**/.env.local
+**/.env.*.local
+**/src/routeTree.gen.ts
+**/src/types/api/v1.d.ts

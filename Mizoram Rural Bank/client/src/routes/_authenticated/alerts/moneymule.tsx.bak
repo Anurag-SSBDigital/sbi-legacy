@@ -1,0 +1,202 @@
+// import { useState } from 'react'
+// import { createFileRoute } from '@tanstack/react-router'
+// import LoadingBar from 'react-top-loading-bar'
+// import { $api } from '@/lib/api.ts'
+// import { Button } from '@/components/ui/button'
+// import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogHeader,
+//   DialogTitle,
+// } from '@/components/ui/dialog'
+// import MainWrapper from '@/components/ui/main-wrapper.tsx'
+// import PaginatedTable, {
+//   PaginatedTableColumn,
+// } from '@/components/paginated-table.tsx'
+
+// export const Route = createFileRoute('/_authenticated/alerts/moneymule')({
+//   component: RouteComponent,
+// })
+
+// function RouteComponent() {
+//   const { data: riskCounts = [], isLoading: loadingCounts } = $api.useQuery(
+//     'get',
+//     '/efrm/scores/mule-scores/risk-counts',
+//     {}
+//   )
+
+//   const { data: scores = [], isLoading: loadingScores } = $api.useQuery(
+//     'get',
+//     '/efrm/scores/mule-scores',
+//     {}
+//   )
+
+//   const isLoading = loadingCounts || loadingScores
+
+//   const [selectedAccount, setSelectedAccount] = useState<string | null>(null)
+//   const [dialogOpen, setDialogOpen] = useState(false)
+
+//   const { data: matrix = [], isLoading: loadingMatrix } = $api.useQuery(
+//     'get',
+//     `/efrm/scores/mule/{accountNumber}`,
+//     {
+//       params: { path: { accountNumber: selectedAccount || '' } },
+//     },
+//     { enabled: !!selectedAccount }
+//   )
+
+//   const { data: monthlyAnalysis = [], isLoading: loadingMonthly } =
+//     $api.useQuery(
+//       'get',
+//       `/efrm/scores/monthlyAnalysis/{accountNumber}`,
+//       {
+//         params: { path: { accountNumber: selectedAccount || '' } },
+//       },
+//       { enabled: !!selectedAccount }
+//     )
+
+//   const scoreColumns: PaginatedTableColumn<(typeof scores)[0]>[] = [
+//     {
+//       key: 'accountNumber',
+//       label: 'Account Number',
+//       render: (value) => (
+//         <Button
+//           variant='link'
+//           onClick={() => {
+//             setSelectedAccount(value ?? null)
+//             setDialogOpen(true)
+//           }}
+//         >
+//           {value}
+//         </Button>
+//       ),
+//     },
+//     { key: 'name', label: 'Name' },
+//     { key: 'branchCode', label: 'Branch Code' },
+//     { key: 'acctType', label: 'Account Type' },
+//     { key: 'riskLevel', label: 'Risk Level' },
+//     { key: 'score', label: 'Score' },
+//   ]
+
+//   const matrixColumns: PaginatedTableColumn<(typeof matrix)[0]>[] = [
+//     { key: 'processedMonth', label: 'Processed Month' },
+//     { key: 'customerType', label: 'Customer Type' },
+//     { key: 'age', label: 'Age' },
+//     { key: 'upiImpsOutboundRatio', label: 'UPI/IMPS Outbound Ratio' },
+//     { key: 'uniqueBeneficiaries', label: 'Unique Beneficiaries' },
+//     { key: 'roundTxnRatio', label: 'Round Txn Ratio' },
+//     { key: 'totalTxns', label: 'Total Txns' },
+//     { key: 'score', label: 'Score' },
+//     { key: 'riskLevel', label: 'Risk Level' },
+//     { key: 'avgMonthlyAmount', label: 'Avg Monthly Amount' },
+//     { key: 'avgMonthlyCount', label: 'Avg Monthly Count' },
+//     { key: 'avgTransactionValue', label: 'Avg Transaction Value' },
+//     { key: 'channelCounts', label: 'Channel Counts' },
+//     { key: 'channelSpread', label: 'Channel Spread' },
+//     { key: 'totalAmount', label: 'Total Amount' },
+//     { key: 'totalOutboundCount', label: 'Total Outbound Count' },
+//     { key: 'outboundUpiImpsCount', label: 'Outbound UPI/IMPS Count' },
+//     { key: 'profession', label: 'Profession' },
+//     { key: 'updatedAt', label: 'Updated At' },
+//   ]
+
+//   const monthlyColumns: PaginatedTableColumn<(typeof monthlyAnalysis)[0]>[] = [
+//     { key: 'month', label: 'Month' },
+//     { key: 'accountType', label: 'Account Type' },
+//     { key: 'transactionType', label: 'Transaction Type' },
+//     { key: 'direction', label: 'Direction' },
+//     { key: 'monthlyCount', label: 'Monthly Count' },
+//     { key: 'monthlyTotal', label: 'Monthly Total' },
+//     { key: 'monthlyAverage', label: 'Monthly Average' },
+//     { key: 'nightTransactions', label: 'Night Transactions' },
+//     { key: 'weekendTransactions', label: 'Weekend Transactions' },
+//   ]
+
+//   return (
+//     <MainWrapper>
+//       {isLoading && (
+//         <LoadingBar progress={70} className='h-1' color='#2563eb' />
+//       )}
+
+//       <div className='mb-6'>
+//         <h1 className='text-3xl font-bold tracking-tight text-gray-800 dark:text-gray-100'>
+//           Money Mule
+//         </h1>
+//       </div>
+
+//       <div className='mb-8 grid grid-cols-1 gap-4 md:grid-cols-3'>
+//         {riskCounts.map((rc) => (
+//           <Card key={rc.riskLevel}>
+//             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+//               <CardTitle className='text-sm font-medium'>
+//                 {rc.riskLevel} Risk
+//               </CardTitle>
+//             </CardHeader>
+//             <CardContent>
+//               <div className='text-2xl font-bold'>{rc.count}</div>
+//             </CardContent>
+//           </Card>
+//         ))}
+//       </div>
+
+//       <PaginatedTable
+//         data={scores}
+//         columns={scoreColumns}
+//         emptyMessage='No mule scores to display at the moment.'
+//       />
+
+//       <Dialog
+//         open={dialogOpen}
+//         onOpenChange={(open) => {
+//           if (!open) setSelectedAccount(null)
+//           setDialogOpen(open)
+//         }}
+//       >
+//         <DialogContent className='max-h-[90vh] max-w-4xl min-w-[75vw] overflow-y-auto'>
+//           <DialogHeader>
+//             <DialogTitle>Details for Account: {selectedAccount}</DialogTitle>
+//           </DialogHeader>
+
+//           <div className='mt-6'>
+//             <h2 className='mb-4 text-xl font-semibold'>
+//               Mule Monitoring Matrix
+//             </h2>
+//             {loadingMatrix ? (
+//               <div className='text-muted-foreground text-center'>
+//                 Loading...
+//               </div>
+//             ) : (
+//               <div className='overflow-x-scroll'>
+//                 <PaginatedTable
+//                   data={matrix}
+//                   columns={matrixColumns}
+//                   emptyMessage='No matrix data available.'
+//                   showSearch={false}
+//                 />
+//               </div>
+//             )}
+//           </div>
+
+//           <div className='mt-8'>
+//             <h2 className='mb-4 text-xl font-semibold'>
+//               Monthly Transaction Analysis
+//             </h2>
+//             {loadingMonthly ? (
+//               <div className='text-muted-foreground text-center'>
+//                 Loading...
+//               </div>
+//             ) : (
+//               <PaginatedTable
+//                 data={monthlyAnalysis}
+//                 columns={monthlyColumns}
+//                 emptyMessage='No monthly analysis data available.'
+//                 showSearch={false}
+//               />
+//             )}
+//           </div>
+//         </DialogContent>
+//       </Dialog>
+//     </MainWrapper>
+//   )
+// }

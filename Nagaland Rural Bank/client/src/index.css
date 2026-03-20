@@ -1,0 +1,234 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* =========================
+   Brand: Forest Green #219c36
+   ========================= */
+
+:root {
+  --radius: 0.625rem;
+
+  /* Light surfaces & text */
+  --background: #ffffff;
+  --foreground: oklch(0.22 0.030 150); /* neutral with slight green bias */
+
+  --card: #ffffff;
+  --card-foreground: var(--foreground);
+
+  --popover: #ffffff;
+  --popover-foreground: var(--foreground);
+
+  /* Brand */
+  --primary: #219c36;            /* exact brand green */
+  --primary-foreground: #ffffff;  /* WCAG-safe on brand */
+
+  /* Support tones (all subtly green-biased) */
+  --secondary: oklch(0.965 0.022 150);
+  --secondary-foreground: oklch(0.26 0.035 148);
+
+  --muted: oklch(0.955 0.016 152);
+  --muted-foreground: oklch(0.56 0.030 160);
+
+  --accent: color-mix(in oklab, #219c36 55%, white 45%); /* lighter brand tint */
+  --accent-foreground: #0f1a13;
+
+  --destructive: oklch(0.60 0.22 27); /* red for errors */
+
+  /* Chrome */
+  --border: oklch(0.92 0.010 155);
+  --input: oklch(0.92 0.010 155);
+  --ring: color-mix(in oklab, #219c36 72%, white 28%); /* brandy focus ring */
+
+  /* Charts — brand-forward with tasteful complements */
+  --chart-1: #219c36;                                       /* brand */
+  --chart-2: color-mix(in oklab, #219c36 60%, white 40%);   /* light green */
+  --chart-3: color-mix(in oklab, #219c36 80%, black 20%);   /* deep green */
+  --chart-4: oklch(0.72 0.18 60);                           /* warm amber */
+  --chart-5: oklch(0.68 0.12 210);                          /* cool teal-blue */
+
+  /* Sidebar */
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* ===================== Dark mode ===================== */
+.dark {
+  --background: oklch(0.14 0.028 160);    /* deep slate with green bias */
+  --foreground: oklch(0.96 0.006 160);
+
+  --card: oklch(0.18 0.026 160);
+  --card-foreground: var(--foreground);
+
+  --popover: oklch(0.20 0.028 160);
+  --popover-foreground: var(--foreground);
+
+  /* Lift brand for vibrancy on dark */
+  --primary: color-mix(in oklab, #219c36 58%, white 42%);   /* lively brand */
+  --primary-foreground: #0b1410;
+
+  --secondary: oklch(0.24 0.020 160);
+  --secondary-foreground: oklch(0.96 0.006 160);
+
+  --muted: oklch(0.22 0.018 160);
+  --muted-foreground: oklch(0.70 0.030 160);
+
+  --accent: color-mix(in oklab, #219c36 40%, white 60%);    /* gentle green tint */
+  --accent-foreground: #0b1410;
+
+  --destructive: oklch(0.66 0.19 22.2);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: color-mix(in oklab, #219c36 70%, white 30%);
+
+  /* Dark charts */
+  --chart-1: color-mix(in oklab, #219c36 85%, white 15%);
+  --chart-2: color-mix(in oklab, #219c36 60%, black 40%);
+  --chart-3: #68d39d;  /* minty complement for separation */
+  --chart-4: oklch(0.72 0.18 60);
+  --chart-5: oklch(0.68 0.12 210);
+}
+
+/* ===================== Tailwind @theme bindings ===================== */
+@theme inline {
+  --font-inter: 'Inter', 'sans-serif';
+  --font-manrope: 'Manrope', 'sans-serif';
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ===================== Base layer ===================== */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  html { @apply overflow-x-hidden; }
+  body { @apply bg-background text-foreground font-inter min-h-svh w-full; }
+
+  h1,h2,h3,h4,h5,h6 { @apply font-manrope; }
+
+  .card { @apply bg-card text-card-foreground rounded-lg p-6 shadow-md; }
+
+  .button {
+    @apply bg-primary text-primary-foreground rounded-md px-4 py-2 transition-colors duration-200;
+  }
+  .button:hover { @apply brightness-105; }
+  .button:focus { @apply ring-2 ring-offset-2; }
+
+  .button-accent {
+    @apply rounded-md px-4 py-2 transition-colors duration-200 text-accent-foreground;
+    background: var(--accent);
+  }
+  .button-accent:hover { @apply brightness-105; }
+  .button-accent:focus { @apply ring-2 ring-offset-2; }
+
+  input, textarea, select { @apply border-input rounded-md border px-3 py-2; }
+  input:focus, textarea:focus, select:focus { @apply ring-2 ring-[color:var(--ring)]; }
+
+  button:not(:disabled), [role='button']:not(:disabled) { cursor: pointer; }
+
+  /* Prevent focus zoom on mobile devices */
+  @media screen and (max-width: 767px) {
+    input, select, textarea { font-size: 16px !important; }
+  }
+
+  /* (Removed conflicting HSL chart overrides) */
+}
+
+/* ===================== Utilities ===================== */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility faded-bottom {
+  @apply after:pointer-events-none after:absolute after:bottom-0 after:left-0
+    after:hidden after:h-32 after:w-full
+    after:bg-[linear-gradient(180deg,_transparent_10%,_var(--background)_70%)]
+    md:after:block;
+}
+
+/* Simple brand gradients (optional helpers) */
+@utility hero-gradient {
+  background: linear-gradient(
+    135deg,
+    #219c36 0%,
+    color-mix(in oklab, #219c36 62%, white 38%) 48%,
+    oklch(0.75 0.18 60) 100%
+  );
+  color: white;
+}
+@utility button-gradient {
+  background: linear-gradient(90deg, #219c36, color-mix(in oklab, #219c36 70%, black 30%));
+  color: white;
+}
+
+/* ===================== Collapsible ===================== */
+.CollapsibleContent { overflow: hidden; }
+.CollapsibleContent[data-state='open']   { animation: slideDown 300ms ease-out; }
+.CollapsibleContent[data-state='closed'] { animation: slideUp   300ms ease-out; }
+
+@keyframes slideDown { from { height: 0; } to { height: var(--radix-collapsible-content-height); } }
+@keyframes slideUp   { from { height: var(--radix-collapsible-content-height); } to { height: 0; } }
+
+/* ===================== Fade-in ===================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
